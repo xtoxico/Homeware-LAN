@@ -1,9 +1,13 @@
 <!doctype html>
 <html lang="en">
-  <head> </head>
-  <body style="visibility: hidden;">
+  <head>
+    {{ basic['head']|safe }}
+  </head>
+  <body>
 
-    <div id="navbarBlock"></div>
+    <div id="navbarBlock">
+      {{ basic['navbar']|safe }}
+    </div>
 
     <div id="grid" class="container containerP">
 
@@ -12,48 +16,255 @@
           <div id="alertContainer"></div>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <form id=formulario"">
 
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-contact-tab" data-toggle="tab" href="#nav-status" role="tab" aria-controls="nav-apikey" aria-selected="false">Status</a>
+          <a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-google" role="tab" aria-controls="nav-home" aria-selected="true">Google</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-dns" role="tab" aria-controls="nav-profile" aria-selected="false">DDNS</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-mqtt" role="tab" aria-controls="nav-profile" aria-selected="false">MQTT</a>
+          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-backup" role="tab" aria-controls="nav-contact" aria-selected="false">Backup and restore</a>
+          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-apikey" role="tab" aria-controls="nav-apikey" aria-selected="false">API Key</a>
+          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-log" role="tab" aria-controls="nav-apikey" aria-selected="false">Events</a>
+        </div>
+      </nav>
 
-            <div class="container p-3 mb-2 bg-light text-dark" style="text-align: right">
-              <span class="textMessageAlert" id="textMessageAlert">Up to date</span>
-              <button type="button" class="btn btn-primary" id="save">Save</button>
-              <!--<input type="hidden" id="n" value="-1">-->
-            </div>
-
-            <div class="container p-3 mb-2 bg-light text-dark">
-              <h3>Homeware API</h3>
-              <div class="form-row">
-                <div class="form-group col-md-7">
-                    <input type="text" class="form-control" id="apiClockURL" value="https://{{ domain }}/clock" disabled>
-                </div>
-                <div class="form-group col-md-3 colAligmentL">
-                    <label for="apiClockURL">Clock's function URL</label>
-                </div>
-                <div class="form-group col-md-2 colAligmentA">
-                  <a class="badge badge-primary" data-toggle="modal" data-target="#modal" style="color:white;" onclick="updateModal('apiClockURL')">Learn more</a>
-                </div>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-status" role="tabpanel" aria-labelledby="nav-contact-tab">
+          <div class="row">
+            <div class="col">
+              <div class="container p-3 mb-2 bg-light text-dark" id="HomeWareStatus">
+                <h3>Homeware status</h3>
+                <hr>
+                <div id="HomewareCurrentStatus"></div>
+                <div id="HomewareNewStatus"></div>
               </div>
-
             </div>
+          </div>
 
-
-            <div class="container p-3 mb-2 bg-light text-dark" style="text-align: right">
-              <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#eventsLog" aria-expanded="false" aria-controls="eventsLog" id="showEventsLog">
-                Show events log
-              </button>
-            <div>
-            <div class="collapse" id="eventsLog">
-              <div class="card card-body" style="margin-top:20px;" id="eventsLogBox">
-
+          <div class="row">
+            <div class="col">
+              <div class="container p-3 mb-2 bg-light text-dark" id="HomeWareStatus">
+                <h3>Homeware dependencies</h3>
+                <hr>
                 WIP
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-google" role="tabpanel" aria-labelledby="nav-home-tab">
+          <div class="row">
+            <div class="col">
+              <form id="formularioGoogle">
+
+                <div class="container p-3 mb-2 bg-light text-dark" style="text-align: right">
+                  <span class="textMessageAlert" id="textMessageAlertGoogle">Up to date</span>
+                  <button type="button" class="btn btn-primary" id="saveGoogle">Save</button>
+                  <!--<input type="hidden" id="n" value="-1">-->
+                </div>
+
+                <div class="container p-3 mb-2 bg-light text-dark">
+                  <h3>Actions on Google</h3>
+                  <hr>
+                  <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <input type="text" class="form-control" id="clientId">
+                    </div>
+                    <div class="form-group col-md-7 colAligmentL">
+                        <label for="clientId">Client ID</label>
+                    </div>
+                    <div class="form-group col-md-2 colAligmentA">
+                      <a class="badge badge-primary" data-toggle="modal" data-target="#modal" style="color:white;" onclick="updateModal('clientId')">Learn more</a>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <input type="text" class="form-control" id="clientSecret">
+                    </div>
+                    <div class="form-group col-md-7 colAligmentL">
+                        <label for="clientSecret">Client secret</label>
+                    </div>
+                    <div class="form-group col-md-2 colAligmentA">
+                      <a class="badge badge-primary" data-toggle="modal" data-target="#modal" style="color:white;" onclick="updateModal('clientSecret')">Learn more</a>
+                    </div>
+                  </div>
+                  <span id="actionOnGoogleAuxiliarData"></span>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-dns" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <div class="row">
+            <div class="col">
+              <form id="formularioDDNS">
+
+                <div class="container p-3 mb-2 bg-light text-dark" style="text-align: right">
+                  <span class="textMessageAlert" id="textMessageAlertDDNS">Up to date</span>
+                  <button type="button" class="btn btn-primary" id="saveDDNS">Save</button>
+                </div>
+
+
+                <div class="container p-3 mb-2 bg-light text-dark">
+                  <h3>DDNS provider</h3>
+                  <hr>
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="ddnsEnabled">
+                        <label class="custom-control-label" for="ddnsEnabled">Enable</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-8">
+                      <div class="form-row">
+                        <div class="form-group col-md-7">
+                          <select class="form-control" id="ddnsProvider">
+                            <option>noip</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-md-2 colAligmentL">
+                            <label for="ddnsProvider">Provider</label>
+                        </div>
+                        <div class="form-group col-md-2 colAligmentA">
+                          <a class="badge badge-primary" data-toggle="modal" data-target="#modal" style="color:white;" onclick="updateModal('ddns')">Learn more</a>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-md-7">
+                            <input type="text" class="form-control" id="ddnsUsername">
+                        </div>
+                        <div class="form-group col-md-2 colAligmentL">
+                            <label for="ddnsUsername">Username</label>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-md-7">
+                            <input type="password" class="form-control" id="ddnsPassword">
+                        </div>
+                        <div class="form-group col-md-2 colAligmentL">
+                            <label for="ddnsPassword">Password</label>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-md-7">
+                            <input type="text" class="form-control" id="ddnsHostname" disabled>
+                        </div>
+                        <div class="form-group col-md-2 colAligmentL">
+                            <label for="ddnsHostname">Hostname</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <span style="font-weight: bold; font-size: 20px; margin-right: 20px;">Status</span>
+                      <span class="badge badge-secondary" id="ddnsStatusBadge">Disabled</span>
+                      <br>
+                      <br>
+                      <span id="ddnsLastUpdate">Last update: </span><br>
+                      <span id="ddnsIP">IP: </span>
+
+                    </div>
+                  </div>
+
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-mqtt" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <div class="row">
+            <div class="col">
+              <form id="formularioMQTT">
+
+                <div class="container p-3 mb-2 bg-light text-dark" style="text-align: right">
+                  <span class="textMessageAlert" id="textMessageAlertMQTT">Up to date</span>
+                  <button type="button" class="btn btn-primary" id="saveMQTT">Save</button>
+                </div>
+
+
+                <div class="container p-3 mb-2 bg-light text-dark">
+                  <h3>MQTT</h3>
+                  <hr>
+                  WIP
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-backup" role="tabpanel" aria-labelledby="nav-contact-tab">
+          <div class="row">
+            <div class="col">
+              <div class="container p-3 mb-2 bg-light text-dark">
+                <h3>Backup</h3>
+                <hr>
+                <div class="form-row">
+                  <div class="form-group col-md-7">
+                      <button type="button" class="btn btn-primary" onclick="buckup()">Download file</button>
+                  </div>
+                </div>
 
               </div>
             </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="container p-3 mb-2 bg-light text-dark">
+                <h3>Restore</h3>
+                <hr>
 
-          </form>
+                  <div class="form-row">
+                    <div class="form-group col-md-7">
+                      <form method=post enctype=multipart/form-data action="/files/restore/file/" id="backupUploaderForm">
+                        <input type="file" class="form-control-file" name="file">
+                        <br>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                      </form>
+                    </div>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-apikey" role="tabpanel" aria-labelledby="nav-contact-tab">
+          <div class="row">
+            <div class="col">
+              <div class="container p-3 mb-2 bg-light text-dark">
+                <h3>API Key</h3>
+                <hr>
+                <div class="form-row">
+                  <div class="form-group col-md-7">
+                      <input type="text" class="form-control" id="apikey" disabled>
+                  </div>
+                  <div class="form-group col-md-3 colAligmentL">
+                      <label for="apikey">API Key</label>
+                  </div>
+                  <div class="form-group col-md-2 colAligmentL">
+                      <button type="button" class="btn btn-primary" onclick="generateAPIKey()">Generate</button>
+                  </div>
+                </div>
+                <span>The API Key gives you access to the Homeware's API. Please do not generate an API Key if you are not sure of what you are doing.</span>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-log" role="tabpanel" aria-labelledby="nav-contact-tab">
+          <div class="row">
+            <div class="col">
+              <div class="container p-3 mb-2 bg-light text-dark" style="text-align: right">
+                <div class="card card-body" style="margin-top:20px;" id="eventsLogBox">
+
+                  WIP
+
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -76,6 +287,23 @@
       </div>
     </div>
 
+    <!-- Modal Waiting -->
+    <div class="modal fade" id="modalUpgrade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="upgradeModalTitle">Title</h5>
+          </div>
+          <div class="modal-body" id="upgradeModalParagraphContainer">
+            <span id="upgradeModalParagraph">Paragrah</span>
+            <br><br>
+            <button type="button" class="btn btn-primary" onclick="resetStep()" id="buttonClose">Close</button>
+            <button type="button" class="btn btn-warning" onclick="downloadAndUpgrade()" id="buttonNext">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="toastBoard" aria-live="polite" aria-atomic="true" style="position:absolute; right: 20px; bottom:0; min-height: 10px;  ">
       <!-- Position it -->
       <div id="toastBoardPosition" style="position: absolute; bottom: 0; right: 0; margin-left: 20px; margin-bottom: 20px; width: 300px;">
@@ -83,120 +311,19 @@
       </div>
     </div>
 
-    <script>
+    <script src="/static/panel/load.js"></script>
+    <script src="/static/panel/settings.js"></script>
 
+    <script>
       data = {}
       window.addEventListener('load', function(event){
-        laodSettingsRequest();
-      });
-
-      function laodSettingsRequest(){
-        var http = new XMLHttpRequest();
-        http.addEventListener("load", function(){
-          loadSettings(http.responseText);
-        });
-        http.open("GET", "/front/read/settings");
-        http.setRequestHeader('authorization', 'baerer ' + getCookieValue('token'))
-        http.send();
-      }
-
-      function loadSettings(local_data){
-        var settings = JSON.parse(local_data);
-        data = settings;
-
-        Object.keys(settings['strings']).forEach(function(setting){
-          if(setting != 'apiClockURL')
-            document.getElementById(setting).value = settings['strings'][setting];
-        });
-
-        Object.keys(settings['bools']).forEach(function(setting){
-          document.getElementById(setting).checked = settings['bools'][setting];
-        });
-      }
-
-      save.addEventListener('click', function() {
-        //Update the text message
-        document.getElementById('textMessageAlert').innerHTML = '...';
-        data['bools']['autoAuthentication'] = document.getElementById('autoAuthentication').checked;
-        data['strings']['codeKey'] = document.getElementById('codeKey').value;
-        //data['strings']['apiClockURL'] = 'https://{{ domain }}/clock/';
-        saveData('settings', data);
-        //Update the text message
-        updateMessageWithTime();
-      });
-
-      function saveData(param, value){
-        var http = new XMLHttpRequest();
-        http.addEventListener("load", function(){
-          if (http.responseText != 'Bad token')
-            console.log(http.responseText);
-          else {
-            document.getElementById('textMessageAlert').innerHTML = 'An error has happed.';
-          }
-        });
-        http.open("GET", "/front/write/settings/" + JSON.stringify(value) + '/');
-        http.setRequestHeader('authorization', 'baerer ' + getCookieValue('token'))
-        http.send();
-      }
-
-      function updateModal(settings){
-        var title = 'Fail';
-        var paragrahp = 'Something goes wrong';
-
-        if (settings == 'autoAuthentication'){
-          title = 'Automatic authentication';
-          paragraph = 'If <b>False</b> manual authentication must be done from the <i>Device</i> section:<br>  <ul><li>For new devices</li> <li>If the device lost its refresh token</li></ul> If <b>True</b> the devices will autoconnect using its <i>Authorization code</i>.';
-        } else if (settings == 'codeKey'){
-          title = 'Key for authorization code';
-          paragraph = 'The authorization code is compose with the device\'s id and the Key for authorization code. <br><br> For example, if the device\'s id is <b><i>"bedroom-light"</i></b> and the key is <b><i>"-code"</i></b> the athorization code will be <b><i>"bedroom-light-code"</i></b>.';
-        } else if (settings == 'apiClockURL'){
-          title = 'The clock\'s URL from your Homeware API';
-          paragraph = 'Go to <i>Functions</i> section in Firebase console. Look for the <i>clock</i> function and copy it\'s URL.';
+        requestActual();
+        requestSettings();
+        if ('{{ msg }}' != 'none'){
+          document.getElementById('textMessageAlert').innerHTML = 'Upload: {{ msg }}';
         }
-
-
-        document.getElementById('learMoreModalTitle').innerHTML = title;
-        document.getElementById('learMoreModalParagraph').innerHTML = paragraph;
-
-      }
-
-      //Print message after save
-      function addZero(i) {
-        if (i < 10) {
-          i = "0" + i;
-        }
-        return i;
-      }
-
-      function updateMessageWithTime(){
-        var d = new Date();
-        var h = addZero(d.getHours());
-        var m = addZero(d.getMinutes());
-        var s = addZero(d.getSeconds());
-        document.getElementById('textMessageAlert').innerHTML = 'Saved at ' + h + ":" + m + ":" + s;
-      }
-
-      // TODO
-      // - Show events list
-      //Load the events
-      /*showEventsLog.addEventListener('click', function(){
-        database.ref('/events/read/').on('value', function(eventsSnapshot){
-          var events = eventsSnapshot.val();
-          var eventsKeys = Object.keys(events);
-          //Compose the HTML
-          var html = '';
-          for(i = eventsKeys.length-1; i > eventsKeys.length-11; i--){
-            var uniqueEvent = events[eventsKeys[i]];
-            date = new Date(uniqueEvent.timestamp);
-            html += '<div class="card"> <div class="card-body">';
-            html += '<b>' + uniqueEvent.title + '</b> <br> ' + uniqueEvent.text + ' <br> <b>Timestamp</b>: ';
-            html += addZero(date.getDate()) + '/' + addZero(date.getMonth()) + '/' + date.getFullYear() + ' ' + addZero(date.getHours()) + ':' + addZero(date.getMinutes()) + ':' + addZero(date.getSeconds());
-            html += '</div> </div>';
-          }
-
-          document.getElementById('eventsLogBox').innerHTML = html;
-        })
-      })*/
+        document.getElementById('backupUploaderForm').action += getCookieValue('token') + '/';
+      });
     </script>
 
     <!-- Optional JavaScript -->
@@ -205,8 +332,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    <script src="/static/panel/load.js"></script>
-    <script src="/static/panel/footer.js"></script>
 
   </body>
 </html>

@@ -29,6 +29,7 @@ then
   echo "v0.5.2 dependencies have been installed.\r\n"
 fi
 
+<<<<<<< HEAD
 if ! grep -Fxq "v0.6" installations.txt
 then
   #Intall the new services
@@ -59,6 +60,11 @@ fi
 #Start services
 sudo systemctl restart homewareMQTT
 sudo systemctl restart homewareRedis
+=======
+
+#Start both services
+sudo systemctl restart homewareMQTT
+>>>>>>> 8c5b5cc1aca3e5db3f5f7ccdb1b96498afe3a645
 sudo systemctl restart homeware
 
 echo "\r\The upgrader has finished.\r\n"

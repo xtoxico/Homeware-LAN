@@ -10,6 +10,10 @@ function requestSettings(){
 
 function loadSettings(local_data){
   var token = JSON.parse(local_data);
+<<<<<<< HEAD
+=======
+  console.log(token)
+>>>>>>> 8c5b5cc1aca3e5db3f5f7ccdb1b96498afe3a645
 
   document.getElementById('clientId').value = token['google']['client_id'];
   document.getElementById('clientSecret').value = token['google']['client_secret'];
@@ -43,6 +47,7 @@ function loadSettings(local_data){
 
 }
 
+<<<<<<< HEAD
 function requestStatus(){
   var http = new XMLHttpRequest();
   http.addEventListener("load", function(){
@@ -77,6 +82,8 @@ function loadStatus(status){
 }
 
 
+=======
+>>>>>>> 8c5b5cc1aca3e5db3f5f7ccdb1b96498afe3a645
 saveGoogle.addEventListener('click', function() {
   save();
 });
