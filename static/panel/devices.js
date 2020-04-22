@@ -1,9 +1,5 @@
 
 data = {}
-window.addEventListener('load', function(event){
-  laodDevicesRequest();
-  setInterval(function(){laodDevicesRequest();}, 5000);
-});
 
 function laodDevicesRequest(){
   var http = new XMLHttpRequest();
@@ -11,7 +7,7 @@ function laodDevicesRequest(){
     data = JSON.parse(http.responseText);
     loadCards();
   });
-  http.open("GET", "/front/read/");
+  http.open("GET", "/api/global/get/");
   http.setRequestHeader('authorization', 'baerer ' + getCookieValue('token'))
   http.send();
 }
@@ -94,7 +90,7 @@ function  loadCards(){
       }
       //Get alerts
       var alert = '';
-      
+
 
       html += '<div class="card cardDevice" style="margin-bottom: 15px; margin-right: 3%;">';
         html += '<div class="colorRectangle" style="background-color:#' + color + '; opacity:' + opacity + '"></div>';
@@ -106,7 +102,7 @@ function  loadCards(){
             html += '</div>';
             html += '<div class="row">';
               html += '<div class="col">' + paragraph + '</div>';
-              html += '<div class="col" style="vertical-align:top; text-align:right;"><a href="/devices/edit/' + device.id + '" class="btn btn-primary">Edit</a>' + alert + '</div>';
+              html += '<div class="col" style="vertical-align:top; text-align:right;"><a href="/devices/edit/' + device.id + '" class="btn btn-primary">Edit</a> <br><br> <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal" style="color:white;" onclick="updateModal(\'' + device.name.nicknames[0] + '\',\'' + device.id + '\')">Status</button>' + alert + '</div>';
             html += '</div>';
           html += '</div>';
         html += '</div>';
@@ -138,7 +134,23 @@ function saveData(param, value){
       document.getElementById('textMessageAlert').innerHTML = 'An error has happed.';
     }
   });
-  http.open("GET", "/front/write/" + param + "/" + JSON.stringify(value) + '/');
+  http.open("GET", "/api/write/" + param + "/" + JSON.stringify(value) + '/');
   http.setRequestHeader('authorization', 'baerer ' + getCookieValue('token'));
   http.send();
+}
+
+function updateModal(title, id){
+  var status = data['status'][id]
+  console.log(status)
+
+  params = Object.keys(status)
+  paragraph = ""
+  for(i = 0; i < params.length; i++){
+    paragraph += '<b>' + getParamCoolName(params[i]) + ':</b> ' + status[params[i]] + '<br>';
+  }
+
+
+  document.getElementById('statusModalTitle').innerHTML = title;
+  document.getElementById('statusModalParagraph').innerHTML = paragraph;
+
 }
