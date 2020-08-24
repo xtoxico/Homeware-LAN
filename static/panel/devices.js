@@ -7,7 +7,7 @@ function laodDevicesRequest(){
     data = JSON.parse(http.responseText);
     loadCards();
   });
-  http.open("GET", "/api/global/get/");
+  http.open("GET", "/api/devices/get/");
   http.setRequestHeader('authorization', 'baerer ' + getCookieValue('token'))
   http.send();
 }
